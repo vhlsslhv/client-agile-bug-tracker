@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseURL = `${process.env.REACT_APP_SERVER_HOSTNAME}/api`;
+/* const baseURL = `${process.env.REACT_APP_SERVER_HOSTNAME}/api`; */
+const baseURL = "http://localhost:5000/api";
 
 //http://localhost:5000/api/
 
@@ -8,8 +9,12 @@ export const getAllProjects = () => {
   return axios.get(`${baseURL}/projects`);
 };
 
+export const getAllBoards = () => {
+  return axios.get(`${baseURL}/boards`);
+};
+
 export const addProject = (project) => {
-  return axios.post(`${baseURL}/projects`, project);
+  return axios.post(`${baseURL}/projects`, project, { withCredentials: true });
 };
 
 export const getProject = (projectId) => {
@@ -29,22 +34,16 @@ export const uploadFile = (uploadData) => {
 };
 
 /* AUTHENTICATION API ROUTES */
-
 export const signup = (user) => {
-  return axios.post(`${baseURL}/signup`, user);
+  return axios.post("http://localhost:5000/api/signup", user);
 };
 
-
-/* Every time we want to see on the frontend who is our 
-logged in user we need to pass {withcredentials: true} */
-  export const login = (user) => {
-  return axios.post(`${baseURL}/login`, user, { withCredentials: true } );
+export const login = (user) => {
+  return axios.post(`${baseURL}/login`, user, { withCredentials: true });
 };
 
-/* We pass this so we can access to the stored session in the database
- and retrieve that session if the user is logged in */
-export const loggedIn = ()=>{
-  return axios.get(`${baseURL}/loggedin`, {withCredentials: true});
+export const loggedIn = () => {
+  return axios.get(`${baseURL}/loggedin`, { withCredentials: true });
 };
 
 export const logout = () => {
